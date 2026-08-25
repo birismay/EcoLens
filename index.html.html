@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make Every Meal Count — EcoLens @ Lingaro</title>
+<link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── CSS Variables (Lingaro Brand System) ── */
+:root {
+  --purple:       #662e90;
+  --purple-light: rgba(102,46,144,.07);
+  --purple-mid:   rgba(102,46,144,.14);
+  --blue:         #4da3da;
+  --orange:       #ed8c22;
+  --off-white:    #f6f7f9;
+  --white:        #ffffff;
+  --text:         #1a1a2e;
+  --text-light:   #383848;
+  --radius:       4px;
+  --radius-img:   10px;
+  --shadow-card:  0 2px 12px rgba(25,28,30,.06);
+  --shadow-hover: 0 20px 50px rgba(102,46,144,.09);
+  --shadow-img:   0 24px 56px rgba(25,28,30,.12);
+  --wave:         linear-gradient(90deg, var(--purple) 0%, var(--blue) 60%, var(--orange) 100%);
+  --font:         'Maven Pro', system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+/* ── HEADER ── */
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(102,46,144,.08);
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 48px;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.header-logo { height: 28px; width: auto; display: block; }
+.header-wave { height: 3px; background: var(--wave); }
+.header-badge {
+  font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.8px;
+  color: var(--purple); opacity: .75;
+  display: flex; align-items: center; gap: 8px;
+}
+.header-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--purple);
+  opacity: .5;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 88px 48px 0;
+  text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(102,46,144,.05) 0%, transparent 70%);
+}
+.hero-dots {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: radial-gradient(circle, rgba(102,46,144,.1) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 80%);
+}
+.hero-content {
+  position: relative; z-index: 1;
+  max-width: 740px; margin: 0 auto 52px;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2.5px;
+  color: var(--purple); opacity: .75;
+  margin-bottom: 18px;
+}
+.hero-title {
+  font-size: clamp(34px, 5.5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: var(--text);
+  line-height: 1.06;
+  margin-bottom: 22px;
+}
+.hero-title em { color: var(--purple); font-style: normal; }
+.hero-desc {
+  font-size: 16px; color: var(--text-light);
+  max-width: 600px; margin: 0 auto 36px;
+  line-height: 1.8; font-weight: 400;
+}
+.hero-desc strong {
+  color: var(--text);
+  font-weight: 700;
+}
+.hero-accent {
+  height: 3px; width: 80px;
+  background: var(--wave);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+/* ── HERO PHOTO ── */
+.hero-photo-wrap {
+  position: relative; z-index: 1;
+  max-width: 1100px; margin: 0 auto;
+  padding: 0 48px;
+}
+.hero-photo {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: var(--radius-img) var(--radius-img) 0 0;
+  display: block;
+  box-shadow: 0 -8px 40px rgba(102,46,144,.08);
+}
+
+/* ── MAIN LAYOUT ── */
+main {
+  max-width: 1100px; margin: 0 auto;
+  padding: 72px 48px 80px;
+}
+
+/* ── SECTION BLOCK ── */
+.section-wrap { margin-bottom: 96px; }
+
+/* ── SECTION INTRO — split layout: text left, photo right ── */
+.section-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.section-intro.reverse { direction: rtl; }
+.section-intro.reverse > * { direction: ltr; }
+
+.section-text { display: flex; flex-direction: column; }
+.section-label {
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2.5px;
+  color: var(--purple); opacity: .75;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.5px;
+  line-height: 1.18;
+  margin-bottom: 14px;
+}
+.section-desc {
+  font-size: 14.5px; color: var(--text-light);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+.accent-line {
+  height: 3px; width: 60px;
+  background: var(--wave);
+  border-radius: 2px;
+}
+
+/* ── SECTION PHOTO ── */
+.section-photo-wrap {
+  position: relative;
+  border-radius: var(--radius-img);
+  overflow: hidden;
+  box-shadow: var(--shadow-img);
+  line-height: 0;
+}
+.section-photo-wrap::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: var(--radius-img);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  pointer-events: none;
+}
+.section-photo {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-img);
+  display: block;
+  transition: transform .6s cubic-bezier(.22,1,.36,1);
+}
+.section-photo-wrap:hover .section-photo { transform: scale(1.03); }
+
+/* ── TIP CARDS GRID ── */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.tips-grid-2row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ── TIP CARD ── */
+.tip-card {
+  background: var(--off-white);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,.05);
+  padding: 28px 24px 26px;
+  display: flex; flex-direction: column; gap: 14px;
+  box-shadow: var(--shadow-card);
+  transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
+  position: relative; overflow: hidden;
+  cursor: default;
+}
+.tip-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--wave);
+  opacity: 0;
+  transition: opacity .25s;
+}
+.tip-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.tip-card:hover::before { opacity: 1; }
+
+.tip-emoji-wrap {
+  width: 46px; height: 46px;
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 1px solid rgba(102,46,144,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(102,46,144,.07);
+}
+.tip-title {
+  font-size: 15px; font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.2px;
+  line-height: 1.3;
+}
+.tip-desc {
+  font-size: 13.5px; color: var(--text-light);
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ── CTA CLOSING SECTION ── */
+.cta-section {
+  background: var(--off-white);
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,.05);
+  padding: 0;
+  text-align: center;
+  position: relative; overflow: hidden;
+  margin-bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 360px;
+}
+.cta-photo-col {
+  position: relative; overflow: hidden;
+  line-height: 0;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.cta-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.cta-photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(102,46,144,.2) 0%, transparent 60%);
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.cta-text-col {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 56px 48px;
+  text-align: center;
+  position: relative;
+}
+.cta-text-col::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--wave);
+}
+.cta-text-col::after {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(102,46,144,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; }
+.cta-emoji { font-size: 40px; display: block; margin-bottom: 16px; }
+.cta-title {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 900;
+  color: var(--purple);
+  letter-spacing: -.8px;
+  line-height: 1.12;
+  margin-bottom: 14px;
+}
+.cta-text {
+  font-size: 14.5px; color: var(--text-light);
+  max-width: 380px; margin: 0 auto;
+  line-height: 1.75;
+  font-weight: 400;
+}
+.cta-divider {
+  height: 3px; width: 52px;
+  background: var(--wave);
+  border-radius: 2px;
+  margin: 24px auto 0;
+}
+
+/* ── FOOTER ── */
+.site-footer { margin-top: 80px; }
+.footer-wave { height: 3px; background: var(--wave); }
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+  border-top: 1px solid rgba(0,0,0,.06);
+}
+.footer-logo { height: 22px; width: auto; display: block; }
+.footer-right {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+}
+.footer-text {
+  font-size: 12px; color: var(--text-light);
+  font-weight: 500; line-height: 1.5;
+}
+.footer-text a {
+  color: var(--purple); text-decoration: none; font-weight: 600;
+}
+.footer-text a:hover { text-decoration: underline; }
+.footer-tagline {
+  font-size: 10.5px; color: var(--text-light); opacity: .55;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .08s; }
+.reveal-d2 { transition-delay: .16s; }
+.reveal-d3 { transition-delay: .24s; }
+.reveal-d4 { transition-delay: .32s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .header-inner { padding: 0 28px; }
+  .hero { padding: 64px 28px 0; }
+  .hero-photo-wrap { padding: 0 28px; }
+  .hero-photo { height: 300px; }
+  main { padding: 56px 28px 64px; }
+  .section-intro { grid-template-columns: 1fr; gap: 28px; }
+  .section-intro.reverse { direction: ltr; }
+  .section-photo { height: 240px; }
+  .tips-grid,
+  .tips-grid-2row { grid-template-columns: repeat(2, 1fr); }
+  .cta-section { grid-template-columns: 1fr; }
+  .cta-photo-col { height: 240px; border-radius: var(--radius) var(--radius) 0 0; }
+  .cta-photo { border-radius: var(--radius) var(--radius) 0 0; }
+  .cta-photo-overlay { border-radius: var(--radius) var(--radius) 0 0; }
+  .cta-text-col { padding: 48px 32px; border-radius: 0 0 var(--radius) var(--radius); }
+  .footer-inner { padding: 24px 28px; }
+  .footer-right { align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .header-inner { padding: 0 20px; }
+  .hero { padding: 52px 20px 0; }
+  .hero-photo-wrap { padding: 0 20px; }
+  .hero-photo { height: 220px; }
+  main { padding: 48px 20px 52px; }
+  .section-photo { height: 200px; }
+  .tips-grid,
+  .tips-grid-2row { grid-template-columns: 1fr; }
+  .cta-section { grid-template-columns: 1fr; }
+  .cta-text-col { padding: 40px 24px; }
+  .footer-inner { padding: 20px; flex-direction: column; align-items: flex-start; }
+  .footer-right { align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.6 84.4" role="img" aria-label="Lingaro">
+      <path d="M195.5,9.8c-9.4,0-17.1,7.7-17.1,17.1s7.7,17.1,17.1,17.1c9.4,0,17.1-7.7,17.1-17.1h0c0-9.4-7.7-17.1-17.1-17.1ZM205.8,26.9c0,5.7-4.6,10.3-10.3,10.3s-10.3-4.6-10.3-10.3,4.6-10.3,10.3-10.3h0c5.7,0,10.3,4.6,10.3,10.3ZM0,0h6.7v43.2H0V0ZM17.1,11.2h6.7v32.1h-6.7V11.2ZM129.7,9.8c-9.4,0-17.1,7.6-17.1,17.1s7.6,17.1,17.1,17.1c3.8,0,7.6-1.3,10.6-3.6v2.9h6.6v-16.3c0-9.4-7.7-17.1-17.1-17.1h0ZM129.7,37.2c-5.7,0-10.3-4.6-10.3-10.3,0-5.7,4.6-10.3,10.3-10.3,5.7,0,10.3,4.6,10.3,10.3h0c0,5.7-4.6,10.3-10.3,10.3h0ZM63.1,24.6v18.6h-6.7v-18.6c0-6.5-3.2-7.8-8.1-7.8-2.7,0-5.4.8-7.5,2.5v23.9h-6.7v-27.2c4-3.9,10.9-5.6,14.1-5.6,9.5,0,14.8,5,14.8,14.2ZM174.9,10.7l-1.1,6.2h-.4c-.6,0-1.3-.1-1.9,0-4.1.1-6.5,1.6-7.5,2.9v23.5h-6.7v-26.6s4.3-6.1,14.1-6.1,3.5.3,3.5.3Z"/>
+      <path style="fill:#662e90" d="M88.2,49.8c-9.6,0-17.3,7.7-17.3,17.3,0,9.6,7.7,17.3,17.3,17.3s17.3-7.7,17.3-17.3h0c0-9.6-7.8-17.3-17.3-17.3ZM98.5,67.1c0,5.7-4.6,10.3-10.3,10.3s-10.3-4.6-10.3-10.3,4.6-10.3,10.3-10.3c5.7,0,10.3,4.6,10.3,10.3h0ZM88.2,44.2c9.6,0,17.3-7.8,17.3-17.3,0-9.6-7.8-17.3-17.3-17.3-9.6,0-17.3,7.8-17.3,17.3,0,9.6,7.8,17.3,17.3,17.3ZM77.9,26.9c0-5.7,4.6-10.3,10.3-10.3,5.7,0,10.3,4.6,10.3,10.3,0,5.7-4.6,10.3-10.3,10.3-5.7,0-10.3-4.6-10.3-10.3h0Z"/>
+    </svg>
+    <span class="header-badge">EcoLens @ Lingaro</span>
+  </div>
+  <div class="header-wave"></div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content reveal">
+    <div class="hero-eyebrow">EcoLens @ Lingaro &nbsp;&middot;&nbsp; Food Waste Prevention</div>
+    <h1 class="hero-title">Make Every <em>Meal</em> Count</h1>
+    <p class="hero-desc">
+      Did you know that a significant amount of food is wasted every day, even when it's still perfectly good to eat?
+      By making a few simple changes to how we shop, store, prepare, and consume food, we can reduce waste,
+      save resources, and contribute to a more sustainable future.
+    </p>
+    <p class="hero-desc" style="margin-top: -16px;">
+      <strong>Start with just one of the tips below and help make every meal count.</strong>
+    </p>
+    <div class="hero-accent"></div>
+  </div>
+</section>
+
+<!-- Hero photograph -->
+<div class="hero-photo-wrap reveal">
+  <img
+    class="hero-photo"
+    src="https://images.unsplash.com/photo-1543353071-087092ec393a?auto=format&fit=crop&w=1400&q=85"
+    alt="Friends sharing a warm, colourful home-cooked meal around a table"
+    loading="eager"
+  >
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════════════ -->
+<main>
+
+  <!-- ─── SECTION 1: PLAN & BUY ─── -->
+  <div class="section-wrap">
+    <div class="section-intro reveal">
+
+      <div class="section-text">
+        <div class="section-label">01 &mdash; Plan &amp; Buy</div>
+        <h2 class="section-title">Start Smart at the Store</h2>
+        <p class="section-desc">A little planning before you shop goes a long way. These habits help you buy only what you'll actually use — saving money and cutting waste before it ever starts.</p>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="section-photo-wrap">
+        <img
+          class="section-photo"
+          src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=85"
+          alt="Woman selecting fresh vegetables at a farmers market"
+          loading="lazy"
+        >
+      </div>
+
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card reveal reveal-d1">
+        <div class="tip-emoji-wrap">🛒</div>
+        <div class="tip-title">Plan Before You Buy</div>
+        <p class="tip-desc">Take a few minutes to plan your meals and check what you already have at home before shopping. A little planning helps you buy only what you'll use and prevents food from being forgotten in the back of the fridge.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d2">
+        <div class="tip-emoji-wrap">🥫</div>
+        <div class="tip-title">Use What You Have First</div>
+        <p class="tip-desc">Before adding items to your cart, take a look in your fridge, freezer, and pantry. Using what you already have is one of the easiest ways to reduce waste and save money — no extra shopping needed.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d3">
+        <div class="tip-emoji-wrap">🛍️</div>
+        <div class="tip-title">Buy Only What You'll Use</div>
+        <p class="tip-desc">Promotions and bulk deals can be tempting, but buying too much often leads to food being thrown away. Choose quantities that fit your actual needs and weekly routine.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── SECTION 2: STORE & PRESERVE ─── -->
+  <div class="section-wrap">
+    <div class="section-intro reverse reveal">
+
+      <div class="section-photo-wrap">
+        <img
+          class="section-photo"
+          src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=85"
+          alt="Person organising fresh colourful vegetables in a bright kitchen"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="section-text">
+        <div class="section-label">02 &mdash; Store &amp; Preserve</div>
+        <h2 class="section-title">Keep Food Fresher, Longer</h2>
+        <p class="section-desc">How you store food makes all the difference. A few smart habits in the kitchen help extend shelf life and prevent good food from going to waste before it's had a chance to shine.</p>
+        <div class="accent-line"></div>
+      </div>
+
+    </div>
+    <div class="tips-grid-2row">
+
+      <div class="tip-card reveal reveal-d1">
+        <div class="tip-emoji-wrap">❄️</div>
+        <div class="tip-title">Freeze Food Before It Spoils</div>
+        <p class="tip-desc">Not everything needs to be eaten right away. Freezing food you won't use soon helps extend its life and gives you more flexibility for future meals — bread, meat, leftovers, and more all freeze well.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d2">
+        <div class="tip-emoji-wrap">📅</div>
+        <div class="tip-title">Check Food Regularly</div>
+        <p class="tip-desc">Set aside a few minutes each week to check what's in your kitchen. Spotting items that need to be used soon — and making a plan to use them — can prevent a surprising amount of unnecessary waste.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d3">
+        <div class="tip-emoji-wrap">📖</div>
+        <div class="tip-title">Understand Food Labels</div>
+        <p class="tip-desc">Knowing the difference between "Best Before" and "Use By" dates helps you make smarter decisions. Many foods remain perfectly good after their Best Before date if they look, smell, and taste fine.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d2">
+        <div class="tip-emoji-wrap">🧊</div>
+        <div class="tip-title">Keep Your Fridge Organized</div>
+        <p class="tip-desc">Store older items where they're easy to see and reach first. When food stays visible and accessible, it's much more likely to be used before it expires. Out of sight really does mean out of mind.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── SECTION 3: COOK & EAT ─── -->
+  <div class="section-wrap">
+    <div class="section-intro reveal">
+
+      <div class="section-text">
+        <div class="section-label">03 &mdash; Cook &amp; Eat</div>
+        <h2 class="section-title">Make the Most of Every Bite</h2>
+        <p class="section-desc">Whether at home, in the office, or at a company event — mindful habits around cooking and portions can significantly cut down on what ends up in the bin.</p>
+        <div class="accent-line"></div>
+      </div>
+
+      <div class="section-photo-wrap">
+        <img
+          class="section-photo"
+          src="https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?auto=format&fit=crop&w=800&q=85"
+          alt="Two people cooking together joyfully in a bright, modern kitchen"
+          loading="lazy"
+        >
+      </div>
+
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card reveal reveal-d1">
+        <div class="tip-emoji-wrap">🍽️</div>
+        <div class="tip-title">Take Only What You Need</div>
+        <p class="tip-desc">Whether at home, in the office, or attending an event, start with a smaller portion. You can always go back for more — but food left uneaten on a plate often ends up as waste.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d2">
+        <div class="tip-emoji-wrap">🍳</div>
+        <div class="tip-title">Cook with What Needs Using</div>
+        <p class="tip-desc">Before deciding what to cook, check which ingredients need attention first. Turning those items into a meal helps reduce waste and often sparks some of the most creative cooking.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d3">
+        <div class="tip-emoji-wrap">🥡</div>
+        <div class="tip-title">Give Leftovers a Second Chance</div>
+        <p class="tip-desc">Leftovers can become tomorrow's lunch or the base for a completely new meal. With a little creativity, yesterday's dinner doesn't have to go to waste — it can become today's favourite.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── SECTION 4: SHARE & REFLECT ─── -->
+  <div class="section-wrap">
+    <div class="section-intro reverse reveal">
+
+      <div class="section-photo-wrap">
+        <img
+          class="section-photo"
+          src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?auto=format&fit=crop&w=800&q=85"
+          alt="Diverse group of colleagues laughing and sharing food together at a sunny table"
+          loading="lazy"
+        >
+      </div>
+
+      <div class="section-text">
+        <div class="section-label">04 &mdash; Share &amp; Reflect</div>
+        <h2 class="section-title">Think, Share, and Act Together</h2>
+        <p class="section-desc">Sometimes the simplest actions — sharing surplus, pausing before discarding, and thinking collectively — can have the greatest cumulative impact on how much food we waste.</p>
+        <div class="accent-line"></div>
+      </div>
+
+    </div>
+    <div class="tips-grid">
+
+      <div class="tip-card reveal reveal-d1">
+        <div class="tip-emoji-wrap">🤝</div>
+        <div class="tip-title">Share Surplus Food</div>
+        <p class="tip-desc">If you have food you won't be able to finish, consider sharing it with family, friends, neighbours, or colleagues. Sharing helps ensure good food is enjoyed rather than wasted — and it builds community too.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d2">
+        <div class="tip-emoji-wrap">💚</div>
+        <div class="tip-title">Think Before You Throw It Away</div>
+        <p class="tip-desc">Before tossing food in the bin, ask yourself: can it still be eaten, frozen, shared, or composted? A quick pause often saves food from going to waste — and makes a real difference over time.</p>
+      </div>
+
+      <div class="tip-card reveal reveal-d3">
+        <div class="tip-emoji-wrap">🌍</div>
+        <div class="tip-title">Every Meal Counts</div>
+        <p class="tip-desc">Small daily habits add up to a big collective impact when practiced consistently. By wasting less food, we conserve water, energy, and land — contributing to a more sustainable future for everyone.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─── CLOSING CTA ─── -->
+  <div class="cta-section reveal">
+
+    <div class="cta-photo-col">
+      <img
+        class="cta-photo"
+        src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=85"
+        alt="Wholesome, colourful home-cooked meal prepared with care"
+        loading="lazy"
+      >
+      <div class="cta-photo-overlay"></div>
+    </div>
+
+    <div class="cta-text-col">
+      <div class="cta-inner">
+        <span class="cta-emoji">🌱♻️</span>
+        <div class="cta-title">Food Saved is Resource Saved</div>
+        <p class="cta-text">
+          Let's make every meal count. Start with just one tip today and encourage your team to do the same.
+          Small, consistent actions across our global community create a meaningful and lasting difference.
+        </p>
+        <div class="cta-divider"></div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-wave"></div>
+  <div class="footer-inner">
+    <svg class="footer-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.6 84.4" role="img" aria-label="Lingaro">
+      <path d="M195.5,9.8c-9.4,0-17.1,7.7-17.1,17.1s7.7,17.1,17.1,17.1c9.4,0,17.1-7.7,17.1-17.1h0c0-9.4-7.7-17.1-17.1-17.1ZM205.8,26.9c0,5.7-4.6,10.3-10.3,10.3s-10.3-4.6-10.3-10.3,4.6-10.3,10.3-10.3h0c5.7,0,10.3,4.6,10.3,10.3ZM0,0h6.7v43.2H0V0ZM17.1,11.2h6.7v32.1h-6.7V11.2ZM129.7,9.8c-9.4,0-17.1,7.6-17.1,17.1s7.6,17.1,17.1,17.1c3.8,0,7.6-1.3,10.6-3.6v2.9h6.6v-16.3c0-9.4-7.7-17.1-17.1-17.1h0ZM129.7,37.2c-5.7,0-10.3-4.6-10.3-10.3,0-5.7,4.6-10.3,10.3-10.3,5.7,0,10.3,4.6,10.3,10.3h0c0,5.7-4.6,10.3-10.3,10.3h0ZM63.1,24.6v18.6h-6.7v-18.6c0-6.5-3.2-7.8-8.1-7.8-2.7,0-5.4.8-7.5,2.5v23.9h-6.7v-27.2c4-3.9,10.9-5.6,14.1-5.6,9.5,0,14.8,5,14.8,14.2ZM174.9,10.7l-1.1,6.2h-.4c-.6,0-1.3-.1-1.9,0-4.1.1-6.5,1.6-7.5,2.9v23.5h-6.7v-26.6s4.3-6.1,14.1-6.1,3.5.3,3.5.3Z"/>
+      <path style="fill:#662e90" d="M88.2,49.8c-9.6,0-17.3,7.7-17.3,17.3,0,9.6,7.7,17.3,17.3,17.3s17.3-7.7,17.3-17.3h0c0-9.6-7.8-17.3-17.3-17.3ZM98.5,67.1c0,5.7-4.6,10.3-10.3,10.3s-10.3-4.6-10.3-10.3,4.6-10.3,10.3-10.3c5.7,0,10.3,4.6,10.3,10.3h0ZM88.2,44.2c9.6,0,17.3-7.8,17.3-17.3,0-9.6-7.8-17.3-17.3-17.3-9.6,0-17.3,7.8-17.3,17.3,0,9.6,7.8,17.3,17.3,17.3ZM77.9,26.9c0-5.7,4.6-10.3,10.3-10.3,5.7,0,10.3,4.6,10.3,10.3,0,5.7-4.6,10.3-10.3,10.3-5.7,0-10.3-4.6-10.3-10.3h0Z"/>
+    </svg>
+    <div class="footer-right">
+      <p class="footer-text">&copy; Lingaro Group 2026 &nbsp;&middot;&nbsp; EcoLens @ Lingaro &nbsp;&middot;&nbsp; <a href="https://www.lingarogroup.com" target="_blank" rel="noopener">lingarogroup.com</a></p>
+      <span class="footer-tagline">Achieve More With Data &nbsp;&middot;&nbsp; Sustain More Together</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ── Scroll Reveal ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.06 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Trigger above-the-fold elements immediately
+document.querySelectorAll('.hero .reveal, .hero-photo-wrap.reveal').forEach(el => el.classList.add('visible'));
+</script>
+
+</body>
+</html>
